@@ -1,0 +1,12 @@
+h,a,grnd,h_wins_5p,h_wins_50p,h_wins_95p,a_wins_5p,a_wins_50p,a_wins_95p,h_grnd_5p,h_grnd_50p,h_grnd_95p,a_grnd_5p,a_grnd_50p,a_grnd_95p,h_vs_a_5p,h_vs_a_50p,h_vs_a_95p,h_w_streak,a_w_streak,h_l_streak,a_l_streak
+Adelaide,Geelong,Adelaide Oval,0.3,0.6,0.8,0.3,0.6,0.8,0.3,0.6,0.8,0.0,0.4,0.8,0.2,0.6,1.0,1,2,0,0
+Melbourne,Essendon,M.C.G.,0.3,0.6,0.8,0.2,0.5,0.8,0.3,0.6,0.8,0.0,0.2,0.6,0.2,0.6,1.0,0,0,2,2
+Essendon,Melbourne,M.C.G.,0.2,0.5,0.8,0.3,0.6,0.8,0.1,0.3,0.5,0.2,0.6,1.0,0.0,0.4,0.8,0,0,2,2
+Carlton,Sydney,Docklands,0.0,0.1,0.3,0.2,0.4,0.7,0.0,0.1,0.3,0.0,0.4,0.8,0.0,0.2,0.6,0,0,2,2
+Greater Western Sydney,Richmond,Sydney Showground,0.3,0.6,0.8,0.6,0.8,1.0,0.5,0.7,0.9,0.2,0.6,1.0,0.2,0.6,1.0,0,0,1,1
+Brisbane Lions,Port Adelaide,Gabba,0.2,0.5,0.8,0.2,0.4,0.7,0.1,0.3,0.5,0.0,0.4,0.8,0.0,0.0,0.0,2,2,0,0
+Collingwood,West Coast,M.C.G.,0.3,0.6,0.8,0.5,0.7,0.9,0.3,0.6,0.8,0.2,0.6,1.0,0.0,0.4,0.8,1,1,0,0
+Western Bulldogs,Gold Coast,Docklands,0.2,0.5,0.8,0.0,0.2,0.4,0.3,0.6,0.8,0.0,0.2,0.6,1.0,1.0,1.0,2,1,0,0
+Hawthorn,North Melbourne,M.C.G.,0.5,0.7,0.9,0.2,0.4,0.7,0.2,0.5,0.8,0.0,0.4,0.8,0.4,0.8,1.0,0,0,1,2
+North Melbourne,Hawthorn,M.C.G.,0.2,0.4,0.7,0.5,0.7,0.9,0.3,0.6,0.8,0.0,0.4,0.8,0.0,0.2,0.6,0,0,2,1
+Fremantle,St Kilda,Perth Stadium,0.1,0.3,0.5,0.1,0.3,0.5,0.2,0.5,0.8,0.0,0.0,0.0,0.0,0.4,0.8,0,2,1,0
