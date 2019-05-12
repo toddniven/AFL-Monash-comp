@@ -1,10 +1,10 @@
-h,a,grnd,h_wins_5p,h_wins_50p,h_wins_95p,a_wins_5p,a_wins_50p,a_wins_95p,h_grnd_5p,h_grnd_50p,h_grnd_95p,a_grnd_5p,a_grnd_50p,a_grnd_95p,h_vs_a_5p,h_vs_a_50p,h_vs_a_95p,h_w_streak,a_w_streak,h_l_streak,a_l_streak
-Richmond,Collingwood,M.C.G.,0.6,0.8,1,0.2,0.5,0.8,0.7,0.9,1,0.2,0.6,1,0.4,0.8,1,1,0,0,1
-Sydney,Adelaide,S.C.G.,0.2,0.4,0.7,0.3,0.6,0.805,0.2,0.4,0.7,0.2,0.6,1,0.2,0.6,1,0,0,1,1
-Essendon,St Kilda,Docklands,0.3,0.6,0.8,0.1,0.3,0.5,0.5,0.7,0.9,0,0.2,0.6,0,0.4,0.8,0,1,1,0
-Port Adelaide,Carlton,Adelaide Oval,0.2,0.4,0.7,0,0.1,0.3,0.2,0.5,0.8,0,0,0,0.2,0.6,1,1,0,0,1
-Geelong,Melbourne,Kardinia Park,0.3,0.6,0.8,0.3,0.6,0.8,0.7,0.9,1,0,0.2,0.6,0.4,0.8,1,1,0,0,1
-West Coast,Greater Western Sydney,Perth Stadium,0.5,0.7,0.9,0.5,0.7,0.9,0.6,0.8,1,0,0,0,0,0.4,0.8,0,1,1,0
-North Melbourne,Brisbane Lions,Docklands,0.2,0.4,0.7,0.2,0.5,0.8,0.2,0.5,0.8,0,0,0,1,1,1,0,1,1,0
-Hawthorn,Western Bulldogs,M.C.G.,0.5,0.7,0.9,0.2,0.5,0.8,0.3,0.6,0.8,0.2,0.6,1,0.4,0.8,1,1,1,0,1
-Gold Coast,Fremantle,Carrara,0,0.1,0.3,0.1,0.3,0.5,0,0,0,0.4,0.8,1,0,0.4,0.8,0,1,1,0
+h,a,grnd,h_wins_5p,h_wins_50p,h_wins_95p,a_wins_5p,a_wins_50p,a_wins_95p,h_grnd_5p,h_grnd_50p,h_grnd_95p,a_grnd_5p,a_grnd_50p,a_grnd_95p,h_vs_a_5p,h_vs_a_50p,h_vs_a_95p,h_w_streak,a_w_streak,h_l_streak,a_l_streak,h_games,h_points,h_percentage,a_games,a_points,a_percentage
+Richmond,Collingwood,M.C.G.,0.6,0.8,1.0,0.2,0.5,0.8,0.7,0.9,1.0,0.2,0.6,1.0,0.4,0.8,1.0,1,0,0,1,1,4,151.6,1,0,90.3
+Sydney,Adelaide,S.C.G.,0.2,0.4,0.7,0.3,0.6,0.805,0.2,0.4,0.7,0.2,0.6,1.0,0.2,0.6,1.0,0,0,1,1,1,0,79.3,1,0,63.2
+Essendon,St Kilda,Docklands,0.3,0.6,0.8,0.1,0.3,0.5,0.5,0.7,0.9,0.0,0.2,0.6,0.0,0.4,0.8,0,1,1,0,1,0,35.7,1,4,101.2
+Port Adelaide,Carlton,Adelaide Oval,0.2,0.4,0.7,0.0,0.1,0.3,0.2,0.5,0.8,0.0,0.0,0.0,0.2,0.6,1.0,1,0,0,1,1,4,142.6,1,0,66.0
+Geelong,Melbourne,Kardinia Park,0.3,0.6,0.8,0.3,0.6,0.8,0.7,0.9,1.0,0.0,0.2,0.6,0.4,0.8,1.0,1,0,0,1,1,4,110.8,1,0,70.1
+West Coast,Greater Western Sydney,Perth Stadium,0.5,0.7,0.9,0.5,0.7,0.9,0.6,0.8,1.0,0.0,0.0,0.0,0.0,0.4,0.8,0,1,1,0,1,0,56.9,1,4,280.0
+North Melbourne,Brisbane Lions,Docklands,0.2,0.4,0.7,0.2,0.5,0.8,0.2,0.5,0.8,0.0,0.0,0.0,1.0,1.0,1.0,0,1,1,0,1,0,41.8,1,4,175.9
+Hawthorn,Western Bulldogs,M.C.G.,0.5,0.7,0.9,0.2,0.5,0.8,0.3,0.6,0.8,0.2,0.6,1.0,0.4,0.8,1.0,1,1,0,1,1,4,158.2,1,4,126.2
+Gold Coast,Fremantle,Carrara,0.0,0.1,0.3,0.1,0.3,0.5,0.0,0.0,0.0,0.4,0.8,1.0,0.0,0.4,0.8,0,1,1,0,1,0,98.8,1,4,239.0
