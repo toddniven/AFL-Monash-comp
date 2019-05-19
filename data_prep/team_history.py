@@ -73,7 +73,6 @@ class History:
 
         for season in season_list:
             year = str(2019 - season)
-            print(year)
             teams = list(mapping.keys())
             teams.remove('Kangaroos')
 
@@ -86,6 +85,7 @@ class History:
             results = []
 
             for team in teams:
+                print(year, team)
                 df = History(mapping, proxy).team_roll(team, season, team_df)
                 home_df = df[df['T'] == 'H'].reset_index(drop=True)
                 results.append(home_df['R'])
@@ -94,7 +94,6 @@ class History:
                     opponent = home_df['Opponent'][i]
                     if opponent == 'Kangaroos':
                         opponent = 'North Melbourne'
-                    print(team, opponent)
                     opp_df = History(mapping, proxy).team_roll(opponent, season, team_df)
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] ==
@@ -157,7 +156,6 @@ class History:
 
         for season in season_list:
             year = str(2019 - season)
-            print(year)
             teams = list(mapping.keys())
             teams.remove('Kangaroos')
 
@@ -170,6 +168,7 @@ class History:
             results = []
 
             for team in teams:
+                print(year, team)
                 df = History(mapping, proxy).team_roll_ha(team, season, 'H', team_df)
                 home_df = df.reset_index(drop=True)
                 results.append(home_df['R'])
@@ -178,7 +177,6 @@ class History:
                     opponent = home_df['Opponent'][i]
                     if opponent == 'Kangaroos':
                         opponent = 'North Melbourne'
-                    print(team, opponent)
                     opp_df = History(mapping, proxy).team_roll_ha(opponent, season, 'A', team_df)
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] == rnd][
