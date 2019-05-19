@@ -1,4 +1,6 @@
 models
-training
+training-all
+training-hva
 .ipynb_checkpoints
 .idea
+AFL\ historical\ model\ \(edit\ version\).ipynb

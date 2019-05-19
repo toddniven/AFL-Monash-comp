@@ -55,7 +55,7 @@ class History:
 
         df = df.shift(shift)
         hist[['F_mean', 'A_mean', 'M_mean']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).mean()
-        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std()
+        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std(ddof=0)
         hist['W_sum'] = hist['R'].shift(shift).rolling(roll, min_periods=2).sum()
         hist['perc'] = hist['F_mean'] / hist['A_mean']
         return hist
@@ -139,7 +139,7 @@ class History:
 
         df = df.shift(shift)
         hist[['F_mean', 'A_mean', 'M_mean']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).mean()
-        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std()
+        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std(ddof=0)
         hist['W_sum'] = hist['R'].shift(shift).rolling(roll, min_periods=2).sum()
         hist['perc'] = hist['F_mean'] / hist['A_mean']
         return hist
