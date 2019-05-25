@@ -13,7 +13,7 @@ class Scrape:
         mapping = self.mapping
         url = 'https://afltables.com/afl/teams/' + mapping[team] + '/allgames.html'
         r = requests.get(url, headers={'User-Agent': 'test'}, proxies=self.proxy)
-        soup = BeautifulSoup(r.text, "html")
+        soup = BeautifulSoup(r.text, features="lxml")
         table = soup.find_all('table')[table_num]
         data = []
         rows = table.find_all(['tr', 'th'])
