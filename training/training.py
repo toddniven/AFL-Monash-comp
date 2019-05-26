@@ -44,8 +44,8 @@ class Training:
             y_train = np.concatenate(y, axis=0)
             X_train = np.concatenate(X, axis=0)
 
-            X_train = Features().div_cols(X_train)
-            X_test = Features().div_cols(X_test)
+            # X_train = Features().div_cols(X_train)
+            # X_test = Features().div_cols(X_test)
 
             start = time()
             opt = BayesSearchCV(classifier, search_spaces=space, scoring=scorer, cv=5, n_iter=n_calls, n_jobs=-1)

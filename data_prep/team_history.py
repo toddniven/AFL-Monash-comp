@@ -53,10 +53,10 @@ class History:
         result = np.where(result == 'D', 1, result)
         hist['R'] = np.where(result == 'L', 0, result)
 
-        df = df.shift(shift)
+        df = df.shift(shift)  # shift the entire df
         hist[['F_mean', 'A_mean', 'M_mean']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).mean()
-        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std(ddof=0)
-        hist['W_sum'] = hist['R'].shift(shift).rolling(roll, min_periods=2).sum()
+        hist['R_mean'] = hist[['R']].shift(shift).rolling(roll, min_periods=1).mean()  # needs shifting here too
+        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).std(ddof=0)
         hist['perc'] = hist['F_mean'] / hist['A_mean']
         return hist
 
@@ -98,9 +98,9 @@ class History:
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] ==
                                    rnd][
-                        ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'W_sum', 'perc']].values
+                        ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     away = opp_df[opp_df['Rnd'] ==
-                                  rnd][['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'W_sum', 'perc']].values
+                                  rnd][['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     team_hg.append(np.concatenate([home, away], axis=1)[0])
             y = [y for x in results for y in x]
             np.save(data_path + '/results-' + year + '.npy', y)
@@ -137,9 +137,11 @@ class History:
         hist['R'] = np.where(result == 'L', 0, result)
 
         df = df.shift(shift)
-        hist[['F_mean', 'A_mean', 'M_mean']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).mean()
-        hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].shift(shift).rolling(roll, min_periods=1).std(ddof=0)
-        hist['W_sum'] = hist['R'].shift(shift).rolling(roll, min_periods=2).sum()
+        hist[['F_mean', 'A_mean', 'M_mean']] = \
+            df[['F', 'A', 'M']].rolling(roll, min_periods=1).mean()
+        hist['R_mean'] = hist[['R']].shift(shift).rolling(roll, min_periods=1).mean()  # need shifting here
+        hist[['F_std', 'A_std', 'M_std']] = \
+            df[['F', 'A', 'M']].rolling(roll, min_periods=1).std(ddof=0)
         hist['perc'] = hist['F_mean'] / hist['A_mean']
         return hist
 
@@ -180,9 +182,9 @@ class History:
                     opp_df = History(mapping, proxy).team_roll_ha(opponent, season, 'A', team_df)
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] == rnd][
-                        ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'W_sum', 'perc']].values
+                        ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     away = opp_df[opp_df['Rnd'] == rnd][
-                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'W_sum', 'perc']].values
+                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     team_hg.append(np.concatenate([home, away], axis=1)[0])
             y = [y for x in results for y in x]
             np.save(data_path + '/results-' + year + '.npy', y)
