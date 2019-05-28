@@ -96,11 +96,10 @@ class History:
                         opponent = 'North Melbourne'
                     opp_df = History(mapping, proxy).team_roll(opponent, season, team_df)
                     rnd = home_df['Rnd'][i]
-                    home = home_df[home_df['Rnd'] ==
-                                   rnd][
+                    home = home_df[home_df['Rnd'] == rnd][
                         ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
-                    away = opp_df[opp_df['Rnd'] ==
-                                  rnd][['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
+                    away = opp_df[opp_df['Rnd'] == rnd][
+                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     team_hg.append(np.concatenate([home, away], axis=1)[0])
             y = [y for x in results for y in x]
             np.save(data_path + '/results-' + year + '.npy', y)

@@ -20,6 +20,6 @@ class Scoring:
             home_df['Rnd'] = home_df['Rnd'] + 1
             away_df = History(mapping, proxy).team_roll(away, season=0, shift=0, web=True).tail(1)[
                 ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
-            features1 = np.concatenate([home_df.values[0], away_df.values[0]], axis=0)
-            scoring.append(features1)
+            features = np.concatenate([home_df.values[0], away_df.values[0]], axis=0)
+            scoring.append(features)
         return scoring
