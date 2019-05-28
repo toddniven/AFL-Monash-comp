@@ -21,13 +21,5 @@ class Scoring:
             away_df = History(mapping, proxy).team_roll(away, season=0, shift=0, web=True).tail(1)[
                 ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
             features1 = np.concatenate([home_df.values[0], away_df.values[0]], axis=0)
-
-            home_df2 = \
-            History(mapping, proxy).team_roll_ha(home, home_away='H', season=0, shift=0, web=True).tail(1)[
-                ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
-            away_df2 = \
-            History(mapping, proxy).team_roll_ha(home, home_away='A', season=0, shift=0, web=True).tail(1)[
-                ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
-            features2 = np.concatenate([home_df2.values[0], away_df2.values[0]], axis=0)
-            scoring.append(np.concatenate([features1, features2], axis=0))
+            scoring.append(features1)
         return scoring
