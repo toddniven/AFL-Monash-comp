@@ -24,15 +24,19 @@ class Training:
         best_models = []
 
         space = {
-            'n_estimators': Integer(100, 500),
-            'max_depth': Integer(3, 5),
-            'learning_rate': Real(10 ** -3, 0.1, "log-uniform"),
+            'n_estimators': Integer(200, 1000),
+            'max_depth': Integer(3, 6),
+            'learning_rate': Real(10 ** -4, 0.1, "log-uniform"),
+            'gamma': Real(10 ** -5, 0.1, "log-uniform"),
+            'min_child_weight': Integer(1, 5),
+            'scale_pos_weight': Real(0, 2, "uniform"),
+            'max_delta_step': Integer(0, 5),
             'colsample_bytree': Real(0.1, 1.0, "uniform"),
             'colsample_bylevel': Real(0.1, 1.0, "uniform"),
             'colsample_bynode': Real(0.1, 1.0, "uniform"),
             'subsample': Real(0.1, 1.0, "uniform"),
-            'reg_lambda': Real(0.0, 1.0, "uniform"),
-            'reg_alpha': Real(0.0, 1.0, "uniform"),
+            'reg_lambda': Real(0.0, 2.0, "uniform"),
+            'reg_alpha': Real(0.0, 12.0, "uniform"),
         }
 
         for j in range(len(X_list)):
