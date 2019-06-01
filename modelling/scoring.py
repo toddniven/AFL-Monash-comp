@@ -1,4 +1,5 @@
 from data_prep.team_history import History
+from data_prep.feature_eng import Features
 import numpy as np
 import pandas as pd
 
@@ -28,7 +29,7 @@ class Scoring:
                 ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
             features = np.concatenate([home_df.values[0], away_df.values[0]], axis=0)
             scoring.append(features)
-        return scoring
+        return  Features().div_cols(scoring)
 
 
 class Simulate:
@@ -43,25 +44,23 @@ class Simulate:
     def score_f(y_true, y_pred):
         return 1 + np.log2(y_true * y_pred + (1 - y_true) * (1 - y_pred))
 
-    def generate_past_scores(self, data_path, best_models, team_df, seasons=16):
+    def generate_past_scores(self, data_path, best_models, team_df):
         """
         Use models to simulate past scores (based on score_f above) and output each as numpy arrays ready to be used
         as features
         :param self:
         :param best_models: Input the season models
         :param team_df:
-        :param seasons: How many seasons to generate
         :return:
         """
         mapping = self.mapping
         proxy = self.proxy
-        for season in range(1, seasons):
+        for season in range(1, len(best_models)+1):
             X = np.load(data_path + '/training-' + str(2019 - season) + '.npy')
+            X_train = Features().div_cols(X)
             y = np.load(data_path + '/results-' + str(2019 - season) + '.npy')
-            df = pd.DataFrame(np.c_[X, y])
-            y_new = df[17].values
-            x_new = df.drop(17, axis=1).values
-            score = Simulate.score_f(y_new, best_models[season - 1].predict_proba(x_new)[:, 1])
+
+            score = Simulate.score_f(y, best_models[season - 1].predict_proba(X_train)[:, 1])
 
             year = str(2019 - season)
             teams = list(mapping.keys())

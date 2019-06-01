@@ -36,7 +36,7 @@ class Training:
             'colsample_bynode': Real(0.1, 1.0, "uniform"),
             'subsample': Real(0.1, 1.0, "uniform"),
             'reg_lambda': Real(0.0, 2.0, "uniform"),
-            'reg_alpha': Real(0.0, 12.0, "uniform"),
+            'reg_alpha': Real(0.0, 2.0, "uniform"),
         }
 
         for j in range(len(X_list)):
@@ -48,8 +48,8 @@ class Training:
             y_train = np.concatenate(y, axis=0)
             X_train = np.concatenate(X, axis=0)
 
-            # X_train = Features().div_cols(X_train)
-            # X_test = Features().div_cols(X_test)
+            X_train = Features().div_cols(X_train)
+            X_test = Features().div_cols(X_test)
 
             start = time()
             opt = BayesSearchCV(classifier, search_spaces=space, scoring=scorer, cv=5, n_iter=n_calls, n_jobs=-1)
