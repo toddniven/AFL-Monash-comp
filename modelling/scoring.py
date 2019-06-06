@@ -57,7 +57,7 @@ class Simulate:
         proxy = self.proxy
         for season in range(1, len(best_models)+1):
             X = np.load(data_path + '/training-' + str(2019 - season) + '.npy')
-            X_train = Features().div_cols(X)
+            X_train = Features().div_cols(X).values
             y = np.load(data_path + '/results-' + str(2019 - season) + '.npy')
 
             score = Simulate.score_f(y, best_models[season - 1].predict_proba(X_train)[:, 1])
