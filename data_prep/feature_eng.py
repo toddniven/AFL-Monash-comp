@@ -13,11 +13,12 @@ class Features:
     def div_cols(self, X):
         df = pd.DataFrame(X)
         df.columns = Features().cols()
-        df['perc'] = df['h_perc']/df['a_perc']
+        df['perc'] = df['h_perc'] / df['a_perc']
         df['R_mean'] = df['h_R_mean'] / df['a_R_mean']
         df['F_mean'] = df['h_F_mean'] / df['a_F_mean']
         df['A_mean'] = df['h_A_mean'] / df['a_A_mean']
-        df['sqrt_rnd'] = np.sqrt(df['Rnd'])
+        df['F_std'] = df['h_F_std'] / df['a_F_std']
+        df['A_std'] = df['h_A_std'] / df['a_A_std']
         df = df.replace([np.inf, -np.inf], 0)
         df = df.fillna(0)
         return df

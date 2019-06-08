@@ -21,13 +21,14 @@ class Training:
         scorer = make_scorer(afl_loss, greater_is_better=False, needs_proba=True)
 
         scores = []
+        val_scores = []
         best_models = []
 
         space = {
-            'n_estimators': Integer(200, 1000),
+            'n_estimators': Integer(300, 1000),
             'max_depth': Integer(3, 6),
-            'learning_rate': Real(10 ** -4, 0.1, "log-uniform"),
-            'gamma': Real(10 ** -5, 0.1, "log-uniform"),
+            'learning_rate': Real(10 ** -4, 0.1, "uniform"),
+            'gamma': Real(10 ** -5, 0.1, "uniform"),
             'min_child_weight': Integer(1, 5),
             'scale_pos_weight': Real(0, 2, "uniform"),
             'max_delta_step': Integer(0, 5),
@@ -37,10 +38,11 @@ class Training:
             'subsample': Real(0.1, 1.0, "uniform"),
             'reg_lambda': Real(0.0, 2.0, "uniform"),
             'reg_alpha': Real(0.0, 2.0, "uniform"),
+            'base_score': Real(0.5, 0.6, "uniform"),
         }
 
         for j in range(len(X_list)):
-            classifier = XGBClassifier(base_score=0.57574568288854, n_jobs=-1)
+            classifier = XGBClassifier(n_jobs=-1)
             y = y_list.copy()
             X = X_list.copy()
             y_test = y.pop(j)
@@ -71,5 +73,6 @@ class Training:
             print(model)
             print("")
             best_models.append(model)
+            val_scores.append(opt.best_score_)
             scores.append(opt.score(X_test, y_test))
-        return scores, best_models
+        return scores, val_scores, best_models
