@@ -29,7 +29,7 @@ class Scoring:
                 ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']]
             features = np.concatenate([home_df.values[0], away_df.values[0]], axis=0)
             scoring.append(features)
-        return  Features().div_cols(scoring)
+        return Features().div_cols(scoring)
 
 
 class Simulate:
