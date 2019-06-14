@@ -52,7 +52,7 @@ class Training:
         'reg_alpha': Real(0.0, 2.0, "uniform"),
     }
 
-    def trainR(self, X_list, y_list, space=spaceR):
+    def trainR(self, X_list, y_list, space=spaceR, cv=5):
         """
         RandomSearchCV method
         :param X_list: List of training sets
@@ -81,7 +81,7 @@ class Training:
             start = time()
 
             opt = RandomizedSearchCV(classifier, param_distributions=space,
-                                     n_iter=n_calls, scoring=self.scorer, cv=5, n_jobs=-1, iid=False)
+                                     n_iter=n_calls, scoring=self.scorer, cv=cv, n_jobs=-1, iid=False)
 
             opt.fit(X_train, y_train)
             model = opt.best_estimator_
@@ -97,7 +97,7 @@ class Training:
             scores.append(opt.score(X_test, y_test))
         return scores, val_scores, best_models
 
-    def trainB(self, X_list, y_list, n_points=1, space=spaceB):
+    def trainB(self, X_list, y_list, n_points=1, space=spaceB, cv=5):
         """
         BayesianSearchCV method
         :param X_list: List of training sets
@@ -125,7 +125,7 @@ class Training:
 
             start = time()
             opt = BayesSearchCV(classifier, search_spaces=space,
-                                scoring=self.scorer, cv=5,
+                                scoring=self.scorer, cv=cv,
                                 n_points=n_points,
                                 n_iter=n_calls, n_jobs=-1)
 

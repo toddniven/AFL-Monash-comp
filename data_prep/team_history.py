@@ -4,9 +4,15 @@ from data_prep.web_scraping import Scrape
 
 
 class History:
-    def __init__(self, mapping, proxy):
+    def __init__(self, mapping, proxy, enc):
+        """
+        :param mapping:
+        :param proxy:
+        :param enc: fitted ordinal encoder
+        """
         self.mapping = mapping
         self.proxy = proxy
+        self.enc = enc
 
     def generate_team_history(self, season_list=range(1, 16)):
         """
@@ -38,6 +44,8 @@ class History:
         """
         proxy = self.proxy
         mapping = self.mapping
+        enc = self.enc
+        grounds = enc.categories_[0]
 
         roll = 25
         if web is True:
@@ -58,6 +66,11 @@ class History:
         hist['R_mean'] = hist[['R']].shift(shift).rolling(roll, min_periods=1).mean()  # needs shifting here too
         hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).std(ddof=0)
         hist['perc'] = hist['F_mean'] / hist['A_mean']
+
+        grnds = df[['Venue']]
+        mask = np.isin(grnds, grounds)
+        grnds.values[~mask] = 'other'
+        hist['grnd'] = enc.transform(grnds).flatten()
         return hist
 
     def generate_game_data(self, data_path, team_df, season_list=range(1, 16)):
@@ -70,6 +83,7 @@ class History:
         """
         mapping = self.mapping
         proxy = self.proxy
+        enc = self.enc
 
         for season in season_list:
             year = str(2019 - season)
@@ -86,7 +100,7 @@ class History:
 
             for team in teams:
                 print(year, team)
-                df = History(mapping, proxy).team_roll(team, season, team_df)
+                df = History(mapping, proxy, enc).team_roll(team, season, team_df)
                 home_df = df[df['T'] == 'H'].reset_index(drop=True)
                 results.append(home_df['R'])
 
@@ -94,12 +108,12 @@ class History:
                     opponent = home_df['Opponent'][i]
                     if opponent == 'Kangaroos':
                         opponent = 'North Melbourne'
-                    opp_df = History(mapping, proxy).team_roll(opponent, season, team_df)
+                    opp_df = History(mapping, proxy, enc).team_roll(opponent, season, team_df)
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] == rnd][
                         ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
                     away = opp_df[opp_df['Rnd'] == rnd][
-                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
+                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc', 'grnd']].values
                     team_hg.append(np.concatenate([home, away], axis=1)[0])
             y = [y for x in results for y in x]
             np.save(data_path + '/results-' + year + '.npy', y)
