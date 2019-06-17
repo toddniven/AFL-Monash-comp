@@ -67,6 +67,9 @@ class History:
         hist[['F_std', 'A_std', 'M_std']] = df[['F', 'A', 'M']].rolling(roll, min_periods=1).std(ddof=0)
         hist['perc'] = hist['F_mean'] / hist['A_mean']
 
+        # hist[['F_mean5', 'A_mean5', 'M_mean5']] = df[['F', 'A', 'M']].rolling(5, min_periods=1).mean()
+        # hist['perc5'] = hist['F_mean5'] / hist['A_mean5']
+
         grnds = df[['Venue']]
         mask = np.isin(grnds, grounds)
         grnds.values[~mask] = 'other'
@@ -104,16 +107,17 @@ class History:
                 home_df = df[df['T'] == 'H'].reset_index(drop=True)
                 results.append(home_df['R'])
 
+                home_cols = ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']
+                away_cols = ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc', 'grnd']
+
                 for i in range(len(home_df)):
                     opponent = home_df['Opponent'][i]
                     if opponent == 'Kangaroos':
                         opponent = 'North Melbourne'
                     opp_df = History(mapping, proxy, enc).team_roll(opponent, season, team_df)
                     rnd = home_df['Rnd'][i]
-                    home = home_df[home_df['Rnd'] == rnd][
-                        ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']].values
-                    away = opp_df[opp_df['Rnd'] == rnd][
-                        ['F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc', 'grnd']].values
+                    home = home_df[home_df['Rnd'] == rnd][home_cols].values
+                    away = opp_df[opp_df['Rnd'] == rnd][away_cols].values
                     team_hg.append(np.concatenate([home, away], axis=1)[0])
             y = [y for x in results for y in x]
             np.save(data_path + '/results-' + year + '.npy', y)
