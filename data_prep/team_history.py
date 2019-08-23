@@ -49,9 +49,23 @@ class History:
 
         roll = 25
         if web is True:
+            if (season < 7 or team != 'Greater Western Sydney') and (season < 8 or team != 'Gold Coast'):
+                df_past = Scrape(mapping=mapping, proxy=proxy).scrape_history(team, season+1).reset_index(drop=True)[-5:].copy()
+                df_past['Rnd'] = 5 * ['R0']
+            else:  # Have to deal with teams that didn't have a prior season
+                df_past = Scrape(mapping=mapping, proxy=proxy).scrape_history(team, season).reset_index(drop=True)[:1].copy()
+                df_past['Rnd'] = ['R0']
             df = Scrape(mapping=mapping, proxy=proxy).scrape_history(team, season)
+            df = pd.concat([df_past, df]).reset_index(drop=True)
         else:
+            if (season < 7 or team != 'Greater Western Sydney') and (season < 8 or team != 'Gold Coast'):
+                df_past = team_df[team, season+1].reset_index(drop=True)[-5:].copy()
+                df_past['Rnd'] = 5 * ['R0']
+            else:  # Have to deal with teams that didn't have a prior season
+                df_past = team_df[team, season].reset_index(drop=True)[:1].copy()
+                df_past['Rnd'] = ['R0']
             df = team_df[team, season]
+            df = pd.concat([df_past, df]).reset_index(drop=True)
         hist = pd.DataFrame()
         hist['Team'] = np.full(len(df), team, dtype=object)
         hist['Rnd'] = np.array([s.replace('R', '') for s in df['Rnd']]).astype(int)
@@ -76,7 +90,7 @@ class History:
         hist['grnd'] = enc.transform(grnds).flatten()
         return hist
 
-    def generate_game_data(self, data_path, team_df, season_list=range(1, 16)):
+    def generate_game_data(self, data_path, team_df, season_list=range(1, 17)):
         """
         Generates the training data for overall season stats
         :param data_path:
@@ -88,7 +102,7 @@ class History:
         proxy = self.proxy
         enc = self.enc
 
-        for season in season_list:
+        for season in season_list[:-1]:
             year = str(2019 - season)
             teams = list(mapping.keys())
             teams.remove('Kangaroos')
@@ -104,7 +118,8 @@ class History:
             for team in teams:
                 print(year, team)
                 df = History(mapping, proxy, enc).team_roll(team, season, team_df)
-                home_df = df[df['T'] == 'H'].reset_index(drop=True)
+                home_df = df[df['T'] == 'H']
+                home_df = home_df[home_df['Rnd'] != 0].reset_index(drop=True)  # don't include previous season games
                 results.append(home_df['R'])
 
                 home_cols = ['Rnd', 'F_mean', 'F_std', 'A_mean', 'A_std', 'M_mean', 'A_std', 'R_mean', 'perc']
@@ -115,6 +130,7 @@ class History:
                     if opponent == 'Kangaroos':
                         opponent = 'North Melbourne'
                     opp_df = History(mapping, proxy, enc).team_roll(opponent, season, team_df)
+                    # opp_df = opp_df[opp_df['Rnd'] != 0].reset_index(drop=True)
                     rnd = home_df['Rnd'][i]
                     home = home_df[home_df['Rnd'] == rnd][home_cols].values
                     away = opp_df[opp_df['Rnd'] == rnd][away_cols].values
