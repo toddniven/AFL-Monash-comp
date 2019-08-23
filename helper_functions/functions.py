@@ -19,4 +19,4 @@ class Helpers:
         return np.mean(predictions, axis=1)
 
     def afl_loss(self, y_true, y_pred):
-        return np.sum(1 + np.log2(y_true * y_pred + (1 - y_true) * (1 - y_pred)))
+        return 1 + np.log2(y_true * y_pred + (1 - y_true) * (1 - y_pred))
